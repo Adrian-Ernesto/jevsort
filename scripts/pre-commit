@@ -1,0 +1,42 @@
+#!/bin/sh
+# Blocks commits that carry secrets. Install with scripts/install-hooks.sh
+#
+# .gitignore covers .env, but it does not cover a key pasted into a source
+# file, a `git add -f`, or a new dotfile nobody thought to ignore. This checks
+# what is actually staged.
+#
+# Filtering is done with awk rather than a chain of greps: `grep -v '^\+\+\+'`
+# is a trap, because BRE reads \+ as a repetition operator, the grep exits 2,
+# and a broken filter mid-pipeline lets everything through silently.
+
+fail=0
+
+env_files=$(git diff --cached --name-only --diff-filter=ACM \
+  | awk '/(^|\/)\.env($|\.)/ && !/\.env\.example$/')
+if [ -n "$env_files" ]; then
+  echo "blocked: environment file staged"
+  echo "$env_files" | sed 's/^/  /'
+  fail=1
+fi
+
+added=$(git diff --cached --diff-filter=ACM -U0 | awk '/^\+/ && !/^\+\+\+/')
+if [ -n "$added" ]; then
+  hits=$(printf '%s\n' "$added" | grep -aEn \
+    -e 'sk-[A-Za-z0-9_-]{12,}' \
+    -e 'apikey_[A-Za-z0-9]{24,}' \
+    -e 'gh[pousr]_[A-Za-z0-9]{20,}' \
+    -e 'AKIA[0-9A-Z]{16}' \
+    -e '-----BEGIN [A-Z ]*PRIVATE KEY' \
+    -e '(API_KEY|APIKEY|SECRET|TOKEN|PASSWORD)[A-Z_]*[[:space:]]*[=:][[:space:]]*["'"'"']?[A-Za-z0-9_-]{16,}')
+  if [ -n "$hits" ]; then
+    echo "blocked: staged changes look like they contain a credential"
+    printf '%s\n' "$hits" | cut -c1-110 | sed 's/^/  /'
+    fail=1
+  fi
+fi
+
+if [ "$fail" -eq 1 ]; then
+  echo
+  echo "Nothing was committed. Remove the secret, or use --no-verify if this is a false positive."
+  exit 1
+fi
