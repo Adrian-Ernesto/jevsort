@@ -76,6 +76,14 @@ def main(argv: list[str] | None = None) -> int:
                     "rounds": result.rounds,
                     "mean_asymmetry": round(result.mean_asymmetry, 4),
                     "cycles": result.cycles,
+                    "boundaries": [
+                        {
+                            "above": b.above,
+                            "below": b.below,
+                            "confidence": round(b.confidence, 4),
+                        }
+                        for b in result.boundaries
+                    ],
                     "items": [
                         {
                             "key": i.key,
@@ -94,28 +102,27 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     width = max((len(i.key) for i in result.items), default=4)
-    previous = None
+    confidence_below = {b.above: b.confidence for b in result.boundaries}
+
     for item in result.items:
-        if previous is not None and item.tie_group != previous:
-            print("  " + "-" * (width + 22))
-        marker = "~" if len(result.tie_groups[item.tie_group]) > 1 else " "
-        print(
-            f"{item.rank:>3}. {item.key:<{width}} {marker} "
-            f"[{item.rank_low}-{item.rank_high}]  {item.strength:.3f}"
-        )
-        previous = item.tie_group
+        print(f"{item.rank:>3}. {item.key:<{width}}  [{item.rank_low}-{item.rank_high}]")
+        gap = confidence_below.get(item.key)
+        if gap is not None:
+            bar = "=" * int(round(gap * 20))
+            note = "" if gap >= 0.90 else ("  coin toss" if gap < 0.60 else "  weak")
+            print(f"     {'':<{width}}  {gap:5.2f} {bar}{note}")
 
     print(
         f"\n{result.questions_used} questions in {result.rounds} rounds, "
         f"mean asymmetry {result.mean_asymmetry:.3f}",
         file=sys.stderr,
     )
-    if any(len(g) > 1 for g in result.tie_groups):
-        print(
-            "~ marks items the comparisons could not separate; "
-            "their order within a block is arbitrary",
-            file=sys.stderr,
-        )
+    decided = sum(1 for b in result.boundaries if b.decided)
+    print(
+        f"{decided} of {len(result.boundaries)} boundaries cleared 0.90; "
+        "the number under each item is how much the gap below it is worth",
+        file=sys.stderr,
+    )
     if result.cycles:
         print(f"preference cycles found: {result.cycles}", file=sys.stderr)
     return 0

@@ -7,10 +7,10 @@ from typing import Any, Sequence
 from .aggregate import bradley_terry, find_cycles
 from .client import Judge, JevJudge
 from .compare import compare_pairs, slot
-from .intervals import bootstrap_ranks, rank_intervals, tie_groups
+from .intervals import bootstrap_ranks, rank_intervals, swap_rate, tie_groups
 from .schedule import pair_key, select_pairs
 from .seed import order_by_scores, seed_scores
-from .types import Comparison, Item, RankedItem, RankResult, as_items
+from .types import Boundary, Comparison, Item, RankedItem, RankResult, as_items
 
 # Pairs asked about in one round. Each costs two questions, so this stays inside
 # a single request at the default question limit.
@@ -120,8 +120,18 @@ def rank(
         for position, s in enumerate(order, start=1)
     ]
 
+    boundaries = [
+        Boundary(
+            above=by_slot[a].key,
+            below=by_slot[b].key,
+            confidence=1.0 - swap_rate(ranks, a, b),
+        )
+        for a, b in zip(order, order[1:])
+    ]
+
     return RankResult(
         items=ranked,
+        boundaries=boundaries,
         comparisons=comparisons,
         cycles=[[by_slot[s].key for s in cycle] for cycle in cycles],
         questions_used=used,

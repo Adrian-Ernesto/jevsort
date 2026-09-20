@@ -59,6 +59,25 @@ class Comparison:
 
 
 @dataclass(frozen=True)
+class Boundary:
+    """The gap between two neighbouring items, and how much it is worth.
+
+    ``confidence`` is the share of resampled orderings that kept these two in
+    the printed order. A boundary at 0.55 is barely better than a coin toss, and
+    reporting that is more useful than folding it into a tie group and losing
+    the number.
+    """
+
+    above: str
+    below: str
+    confidence: float
+
+    @property
+    def decided(self) -> bool:
+        return self.confidence >= 0.90
+
+
+@dataclass(frozen=True)
 class RankedItem:
     """An item's position in the final ordering."""
 
@@ -80,6 +99,7 @@ class RankResult:
     """The outcome of a ranking run."""
 
     items: list[RankedItem]
+    boundaries: list[Boundary] = field(default_factory=list)
     comparisons: list[Comparison] = field(default_factory=list)
     cycles: list[list[str]] = field(default_factory=list)
     questions_used: int = 0
@@ -118,6 +138,24 @@ class RankResult:
         if not self.comparisons:
             return 0.0
         return sum(c.asymmetry for c in self.comparisons) / len(self.comparisons)
+
+    @property
+    def weakest_boundary(self) -> Boundary | None:
+        """The least trustworthy place in the ordering."""
+        return min(self.boundaries, key=lambda b: b.confidence, default=None)
+
+    def confident_prefix(self, threshold: float = 0.90) -> list[str]:
+        """The longest run from the top whose every boundary clears ``threshold``.
+
+        This is usually the practical answer: not the whole ordering, but how
+        far down it can be trusted before the evidence runs out.
+        """
+        prefix = [self.items[0].key] if self.items else []
+        for boundary in self.boundaries:
+            if boundary.confidence < threshold:
+                break
+            prefix.append(boundary.below)
+        return prefix
 
     def top(self, n: int) -> list[str]:
         return self.order[:n]

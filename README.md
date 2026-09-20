@@ -62,6 +62,92 @@ problem with decades of existing theory.
    is faithful to the evidence. Those groups are found with Tarjan's algorithm
    and reported rather than quietly flattened.
 
+## Measured
+
+Run against `jev-latest` on 2026-09-21, on the 16-ticket urgency ladder in
+`bench/data/`. Raw responses are committed in `bench/results/`. Reproduce with
+`python bench/asymmetry.py` and `python bench/strategies.py`.
+
+### The comparator is coherent where it does not matter
+
+Asking both directions of 80 pairs, a coherent comparator would put
+`forward + backward` at exactly 1.0 every time.
+
+| | |
+|---|---|
+| mean asymmetry | 0.030 |
+| median | 0.010 |
+| p90 | 0.07 |
+| max | 0.26 |
+| pairs over 0.10 | 6 of 80 |
+| said yes in **both** directions | 2 of 80 |
+
+Median 0.01 means most pairs are effectively coherent. The interesting part is
+where the rest sit:
+
+| distance between the two items in the true order | mean asymmetry |
+|---|---|
+| 0-3 (neighbours) | **0.073** |
+| 4-7 | 0.024 |
+| 8-11 | 0.008 |
+| 12-15 (opposite ends) | 0.007 |
+
+**Incoherence is ten times worse on neighbours than on distant pairs.** The
+comparator is reliable when the answer was obvious and unreliable exactly where
+the ordering is actually decided. That is the worst possible distribution for a
+sort, and it is invisible if you spot-check with obvious examples.
+
+A concrete case, both directions asked of the same pair:
+
+```
+A: Search returns stale results for about an hour after an update.
+B: Password reset emails arrive roughly ten minutes late.
+
+is A more urgent than B?  ->  0.64      both answers say yes
+is B more urgent than A?  ->  0.56
+```
+
+### Against the alternatives
+
+| strategy | Kendall tau | inversions | questions | requests |
+|---|---|---|---|---|
+| score sort | 0.65 | 21 | 16 | 2 |
+| comparison sort | **0.92** | 5 | 39 | 195 |
+| jevsort | 0.85 | 9 | 96 | 4 |
+
+**The comparison sort scored higher on tau than this library did, using fewer
+questions.** That result stands and is not being buried. Two things are true
+about it:
+
+The comparator was coherent enough on this dataset that the sort was stable
+across five runs on identical input. Undefined behaviour is not the same as
+behaviour that always visibly breaks; it means the guarantee is absent, so the
+day it breaks is not predictable from the day it worked.
+
+Requests, not questions, are what wall-clock time is made of. 195 sequential
+round trips against 4 batched ones is the difference between a sort you can run
+inside a request handler and one you cannot.
+
+### What the ordering is actually worth
+
+The more useful measurement is that jevsort reports a confidence for every
+adjacent boundary. On this run, at a 120-question budget:
+
+```
+t07 | t08   0.830
+t08 | t09   0.505      <- a coin toss
+t09 | t10   0.890
+```
+
+One boundary in fifteen cleared 0.90. Every inversion jevsort made fell inside a
+region it had already flagged as unreliable; none fell across a boundary it
+called confident.
+
+The honest reading is that ranking sixteen similar items by a semantic criterion
+is harder than a leaderboard number suggests, and a method that returns a clean
+total order is hiding that rather than solving it. This library returns the
+order **and** the places where the order is not evidence.
+
 ## Run it
 
 ```bash

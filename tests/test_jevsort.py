@@ -123,3 +123,33 @@ def test_duplicate_keys_are_rejected():
     except ValueError:
         return
     raise AssertionError("duplicate keys should raise")
+
+
+def test_boundaries_cover_every_gap_and_carry_a_confidence():
+    keys = [f"item{i}" for i in range(6)]
+    judge = OfflineJudge(build_offline_truth(slots(6)), noise=0.05, seed=4)
+    result = rank(keys, "more urgent", judge=judge, budget=80)
+    assert len(result.boundaries) == len(keys) - 1
+    assert all(0.0 <= b.confidence <= 1.0 for b in result.boundaries)
+    assert [b.above for b in result.boundaries] == result.order[:-1]
+    assert [b.below for b in result.boundaries] == result.order[1:]
+
+
+def test_confident_prefix_stops_at_the_first_weak_boundary():
+    keys = [f"item{i}" for i in range(6)]
+    judge = OfflineJudge(build_offline_truth(slots(6)), noise=0.05, seed=4)
+    result = rank(keys, "more urgent", judge=judge, budget=80)
+    prefix = result.confident_prefix(threshold=0.90)
+    assert prefix[0] == result.order[0]
+    assert len(prefix) <= len(result.order)
+    for boundary in result.boundaries[: len(prefix) - 1]:
+        assert boundary.confidence >= 0.90
+
+
+def test_weakest_boundary_is_the_lowest_confidence_one():
+    keys = [f"item{i}" for i in range(5)]
+    judge = OfflineJudge(build_offline_truth(slots(5)), seed=6)
+    result = rank(keys, "more urgent", judge=judge, budget=60)
+    assert result.weakest_boundary.confidence == min(
+        b.confidence for b in result.boundaries
+    )

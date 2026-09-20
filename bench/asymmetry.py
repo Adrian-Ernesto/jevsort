@@ -57,6 +57,23 @@ def main() -> int:
     elapsed = time.time() - started
 
     asymmetries = [c.asymmetry for c in comparisons]
+
+    # Stratify by how far apart the two items are in the true ordering. This is
+    # the measurement that matters: a comparator that is only incoherent on
+    # pairs whose order was never in doubt costs nothing, while one that is
+    # incoherent on neighbours is incoherent exactly where the ordering is
+    # decided.
+    buckets: dict[int, list[float]] = {}
+    for c in comparisons:
+        distance = abs(int(c.a[1:]) - int(c.b[1:]))
+        buckets.setdefault(min(distance // 4, 3), []).append(c.asymmetry)
+    by_distance = {
+        f"{b * 4}-{b * 4 + 3}": {
+            "mean_asymmetry": round(statistics.fmean(v), 4),
+            "pairs": len(v),
+        }
+        for b, v in sorted(buckets.items())
+    }
     sums = [c.forward + c.backward for c in comparisons]
     flips = sum(1 for c in comparisons if (c.forward > 0.5) == (c.backward > 0.5))
 
@@ -82,6 +99,7 @@ def main() -> int:
             "over_0_25": sum(1 for a in asymmetries if a > 0.25),
         },
         "both_directions_said_yes_or_both_said_no": flips,
+        "asymmetry_by_true_rank_distance": by_distance,
         "raw": [
             {
                 "a": c.a,
@@ -112,6 +130,9 @@ def main() -> int:
     print(f"pairs over 0.10            {a['over_0_10']} of {report['pairs']}")
     print(f"pairs over 0.25            {a['over_0_25']} of {report['pairs']}")
     print(f"both directions agreed     {flips} of {report['pairs']}  (self-contradiction)")
+    print("\nasymmetry by true rank distance between the two items:")
+    for span, stats in by_distance.items():
+        print(f"  distance {span:<6} mean {stats['mean_asymmetry']:.4f}   ({stats['pairs']} pairs)")
     print(f"\nraw responses written to   {out}")
     return 0
 

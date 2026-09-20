@@ -1,0 +1,683 @@
+{
+  "mode": "jev",
+  "items": 16,
+  "pairs": 80,
+  "questions": 160,
+  "requests": 3,
+  "seconds": 1.87,
+  "forward_plus_backward": {
+    "mean": 1.0211,
+    "median": 1.01,
+    "min": 0.79,
+    "max": 1.26
+  },
+  "asymmetry": {
+    "mean": 0.0299,
+    "median": 0.01,
+    "p90": 0.07,
+    "max": 0.26,
+    "over_0_10": 6,
+    "over_0_25": 1
+  },
+  "both_directions_said_yes_or_both_said_no": 2,
+  "asymmetry_by_true_rank_distance": {
+    "0-3": {
+      "mean_asymmetry": 0.0729,
+      "pairs": 21
+    },
+    "4-7": {
+      "mean_asymmetry": 0.0235,
+      "pairs": 26
+    },
+    "8-11": {
+      "mean_asymmetry": 0.0078,
+      "pairs": 23
+    },
+    "12-15": {
+      "mean_asymmetry": 0.007,
+      "pairs": 10
+    }
+  },
+  "raw": [
+    {
+      "a": "i0",
+      "b": "i1",
+      "forward": 0.58,
+      "backward": 0.21,
+      "sum": 0.79,
+      "asymmetry": 0.21
+    },
+    {
+      "a": "i0",
+      "b": "i2",
+      "forward": 0.76,
+      "backward": 0.15,
+      "sum": 0.91,
+      "asymmetry": 0.09
+    },
+    {
+      "a": "i0",
+      "b": "i3",
+      "forward": 0.94,
+      "backward": 0.08,
+      "sum": 1.02,
+      "asymmetry": 0.02
+    },
+    {
+      "a": "i0",
+      "b": "i4",
+      "forward": 0.55,
+      "backward": 0.44,
+      "sum": 0.99,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i0",
+      "b": "i5",
+      "forward": 0.96,
+      "backward": 0.04,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i0",
+      "b": "i6",
+      "forward": 0.97,
+      "backward": 0.05,
+      "sum": 1.02,
+      "asymmetry": 0.02
+    },
+    {
+      "a": "i0",
+      "b": "i7",
+      "forward": 0.96,
+      "backward": 0.04,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i0",
+      "b": "i8",
+      "forward": 0.98,
+      "backward": 0.03,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i0",
+      "b": "i9",
+      "forward": 0.98,
+      "backward": 0.03,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i0",
+      "b": "i10",
+      "forward": 0.98,
+      "backward": 0.02,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i0",
+      "b": "i11",
+      "forward": 0.99,
+      "backward": 0.02,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i0",
+      "b": "i12",
+      "forward": 0.98,
+      "backward": 0.02,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i0",
+      "b": "i13",
+      "forward": 0.99,
+      "backward": 0.02,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i0",
+      "b": "i14",
+      "forward": 0.99,
+      "backward": 0.02,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i0",
+      "b": "i15",
+      "forward": 0.99,
+      "backward": 0.02,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i1",
+      "b": "i2",
+      "forward": 0.65,
+      "backward": 0.31,
+      "sum": 0.96,
+      "asymmetry": 0.04
+    },
+    {
+      "a": "i1",
+      "b": "i3",
+      "forward": 0.89,
+      "backward": 0.14,
+      "sum": 1.03,
+      "asymmetry": 0.03
+    },
+    {
+      "a": "i1",
+      "b": "i4",
+      "forward": 0.41,
+      "backward": 0.66,
+      "sum": 1.07,
+      "asymmetry": 0.07
+    },
+    {
+      "a": "i1",
+      "b": "i5",
+      "forward": 0.92,
+      "backward": 0.09,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i1",
+      "b": "i6",
+      "forward": 0.94,
+      "backward": 0.09,
+      "sum": 1.03,
+      "asymmetry": 0.03
+    },
+    {
+      "a": "i1",
+      "b": "i7",
+      "forward": 0.93,
+      "backward": 0.07,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i1",
+      "b": "i8",
+      "forward": 0.97,
+      "backward": 0.05,
+      "sum": 1.02,
+      "asymmetry": 0.02
+    },
+    {
+      "a": "i1",
+      "b": "i9",
+      "forward": 0.97,
+      "backward": 0.04,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i1",
+      "b": "i10",
+      "forward": 0.98,
+      "backward": 0.03,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i1",
+      "b": "i11",
+      "forward": 0.99,
+      "backward": 0.03,
+      "sum": 1.02,
+      "asymmetry": 0.02
+    },
+    {
+      "a": "i1",
+      "b": "i12",
+      "forward": 0.98,
+      "backward": 0.03,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i1",
+      "b": "i13",
+      "forward": 0.99,
+      "backward": 0.02,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i1",
+      "b": "i14",
+      "forward": 0.99,
+      "backward": 0.02,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i1",
+      "b": "i15",
+      "forward": 0.99,
+      "backward": 0.02,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i2",
+      "b": "i3",
+      "forward": 0.83,
+      "backward": 0.28,
+      "sum": 1.11,
+      "asymmetry": 0.11
+    },
+    {
+      "a": "i2",
+      "b": "i4",
+      "forward": 0.26,
+      "backward": 0.79,
+      "sum": 1.05,
+      "asymmetry": 0.05
+    },
+    {
+      "a": "i2",
+      "b": "i5",
+      "forward": 0.84,
+      "backward": 0.23,
+      "sum": 1.07,
+      "asymmetry": 0.07
+    },
+    {
+      "a": "i2",
+      "b": "i6",
+      "forward": 0.89,
+      "backward": 0.2,
+      "sum": 1.09,
+      "asymmetry": 0.09
+    },
+    {
+      "a": "i2",
+      "b": "i7",
+      "forward": 0.9,
+      "backward": 0.13,
+      "sum": 1.03,
+      "asymmetry": 0.03
+    },
+    {
+      "a": "i2",
+      "b": "i8",
+      "forward": 0.95,
+      "backward": 0.07,
+      "sum": 1.02,
+      "asymmetry": 0.02
+    },
+    {
+      "a": "i2",
+      "b": "i9",
+      "forward": 0.96,
+      "backward": 0.06,
+      "sum": 1.02,
+      "asymmetry": 0.02
+    },
+    {
+      "a": "i2",
+      "b": "i10",
+      "forward": 0.98,
+      "backward": 0.04,
+      "sum": 1.02,
+      "asymmetry": 0.02
+    },
+    {
+      "a": "i2",
+      "b": "i11",
+      "forward": 0.98,
+      "backward": 0.03,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i2",
+      "b": "i12",
+      "forward": 0.98,
+      "backward": 0.03,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i2",
+      "b": "i13",
+      "forward": 0.98,
+      "backward": 0.02,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i2",
+      "b": "i14",
+      "forward": 0.98,
+      "backward": 0.02,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i2",
+      "b": "i15",
+      "forward": 0.98,
+      "backward": 0.02,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i3",
+      "b": "i4",
+      "forward": 0.19,
+      "backward": 0.86,
+      "sum": 1.05,
+      "asymmetry": 0.05
+    },
+    {
+      "a": "i3",
+      "b": "i5",
+      "forward": 0.6,
+      "backward": 0.53,
+      "sum": 1.13,
+      "asymmetry": 0.13
+    },
+    {
+      "a": "i3",
+      "b": "i6",
+      "forward": 0.81,
+      "backward": 0.45,
+      "sum": 1.26,
+      "asymmetry": 0.26
+    },
+    {
+      "a": "i3",
+      "b": "i7",
+      "forward": 0.79,
+      "backward": 0.39,
+      "sum": 1.18,
+      "asymmetry": 0.18
+    },
+    {
+      "a": "i3",
+      "b": "i8",
+      "forward": 0.91,
+      "backward": 0.12,
+      "sum": 1.03,
+      "asymmetry": 0.03
+    },
+    {
+      "a": "i3",
+      "b": "i9",
+      "forward": 0.93,
+      "backward": 0.12,
+      "sum": 1.05,
+      "asymmetry": 0.05
+    },
+    {
+      "a": "i3",
+      "b": "i10",
+      "forward": 0.97,
+      "backward": 0.04,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i3",
+      "b": "i11",
+      "forward": 0.97,
+      "backward": 0.03,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i3",
+      "b": "i12",
+      "forward": 0.97,
+      "backward": 0.04,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i3",
+      "b": "i13",
+      "forward": 0.98,
+      "backward": 0.03,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i3",
+      "b": "i14",
+      "forward": 0.98,
+      "backward": 0.02,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i3",
+      "b": "i15",
+      "forward": 0.98,
+      "backward": 0.03,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i4",
+      "b": "i5",
+      "forward": 0.88,
+      "backward": 0.15,
+      "sum": 1.03,
+      "asymmetry": 0.03
+    },
+    {
+      "a": "i4",
+      "b": "i6",
+      "forward": 0.94,
+      "backward": 0.11,
+      "sum": 1.05,
+      "asymmetry": 0.05
+    },
+    {
+      "a": "i4",
+      "b": "i7",
+      "forward": 0.93,
+      "backward": 0.09,
+      "sum": 1.02,
+      "asymmetry": 0.02
+    },
+    {
+      "a": "i4",
+      "b": "i8",
+      "forward": 0.96,
+      "backward": 0.05,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i4",
+      "b": "i9",
+      "forward": 0.96,
+      "backward": 0.04,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i4",
+      "b": "i10",
+      "forward": 0.98,
+      "backward": 0.03,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i4",
+      "b": "i11",
+      "forward": 0.98,
+      "backward": 0.02,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i4",
+      "b": "i12",
+      "forward": 0.98,
+      "backward": 0.02,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i4",
+      "b": "i13",
+      "forward": 0.99,
+      "backward": 0.02,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i4",
+      "b": "i14",
+      "forward": 0.98,
+      "backward": 0.02,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i4",
+      "b": "i15",
+      "forward": 0.98,
+      "backward": 0.02,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i5",
+      "b": "i6",
+      "forward": 0.67,
+      "backward": 0.36,
+      "sum": 1.03,
+      "asymmetry": 0.03
+    },
+    {
+      "a": "i5",
+      "b": "i7",
+      "forward": 0.77,
+      "backward": 0.24,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i5",
+      "b": "i8",
+      "forward": 0.88,
+      "backward": 0.14,
+      "sum": 1.02,
+      "asymmetry": 0.02
+    },
+    {
+      "a": "i5",
+      "b": "i9",
+      "forward": 0.89,
+      "backward": 0.11,
+      "sum": 1.0,
+      "asymmetry": 0.0
+    },
+    {
+      "a": "i5",
+      "b": "i10",
+      "forward": 0.96,
+      "backward": 0.05,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i5",
+      "b": "i11",
+      "forward": 0.97,
+      "backward": 0.04,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i5",
+      "b": "i12",
+      "forward": 0.96,
+      "backward": 0.05,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i5",
+      "b": "i13",
+      "forward": 0.97,
+      "backward": 0.04,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i5",
+      "b": "i14",
+      "forward": 0.98,
+      "backward": 0.03,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i5",
+      "b": "i15",
+      "forward": 0.98,
+      "backward": 0.03,
+      "sum": 1.01,
+      "asymmetry": 0.01
+    },
+    {
+      "a": "i6",
+      "b": "i7",
+      "forward": 0.59,
+      "backward": 0.53,
+      "sum": 1.12,
+      "asymmetry": 0.12
+    },
+    {
+      "a": "i6",
+      "b": "i8",
+      "forward": 0.8,
+      "backward": 0.25,
+      "sum": 1.05,
+      "asymmetry": 0.05
+    },
+    {
+      "a": "i6",
+      "b": "i9",
+      "forward": 0.83,
+      "backward": 0.24,
+      "sum": 1.07,
+      "asymmetry": 0.07
+    },
+    {
+      "a": "i6",
+      "b": "i10",
+      "forward": 0.95,
+      "backward": 0.07,
+      "sum": 1.02,
+      "asymmetry": 0.02
+    },
+    {
+      "a": "i6",
+      "b": "i11",
+      "forward": 0.97,
+      "backward": 0.05,
+      "sum": 1.02,
+      "asymmetry": 0.02
+    }
+  ]
+}

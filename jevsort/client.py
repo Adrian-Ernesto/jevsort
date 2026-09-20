@@ -5,13 +5,40 @@ from __future__ import annotations
 import math
 import os
 import random
+from pathlib import Path
 from typing import Any, Protocol, Sequence
 
-DEFAULT_MODEL = "jev-1.13"
+# The API currently offers only moving aliases -- jev-latest and jev-preview --
+# with no pinned version to hold onto. Results here are tied to whatever
+# jev-latest resolved to on the day they were measured.
+DEFAULT_MODEL = "jev-latest"
 
 # Questions sent in a single request. Comparisons cost two questions each, so
 # this caps a round at MAX_QUESTIONS_PER_REQUEST // 2 pairs before chunking.
 MAX_QUESTIONS_PER_REQUEST = 64
+
+
+def load_env(start: Path | None = None) -> None:
+    """Read a .env file into the environment if the key is not already set.
+
+    Walks up from ``start`` looking for a .env, so the CLI and the benchmarks
+    work from any directory in the project. Existing environment variables win,
+    which keeps CI and shell exports authoritative.
+    """
+    if os.environ.get("TYPESAFE_API_KEY"):
+        return
+    here = (start or Path(__file__)).resolve()
+    for directory in [here, *here.parents]:
+        candidate = directory / ".env"
+        if not candidate.is_file():
+            continue
+        for line in candidate.read_text().splitlines():
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            name, _, value = line.partition("=")
+            os.environ.setdefault(name.strip(), value.strip().strip("\"'"))
+        return
 
 
 class Judge(Protocol):
@@ -45,6 +72,7 @@ class JevJudge:
         if client is not None:
             self._client = client
         else:
+            load_env()
             if not os.environ.get("TYPESAFE_API_KEY"):
                 raise RuntimeError(
                     "TYPESAFE_API_KEY is not set. Export it, or pass "
