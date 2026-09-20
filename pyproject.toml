@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jevsort"
+version = "0.1.0"
+description = "Rank things with a judgment model that is not a consistent comparator"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Adrian Ernesto Orozco Rivera" }]
+keywords = ["typesafe", "jev", "ranking", "sorting", "bradley-terry", "system-one"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = ["typesafe-sdk>=0.7.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+jevsort = "jevsort.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Adrian-Ernesto/jevsort"
+Issues = "https://github.com/Adrian-Ernesto/jevsort/issues"
+
+[tool.setuptools.packages.find]
+include = ["jevsort*"]
