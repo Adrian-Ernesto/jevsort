@@ -133,6 +133,12 @@ judge; the simulation reproduces directional bias, per-call noise and
 non-comparable absolute scores, but it is a simulation and the numbers that
 matter are the ones measured against Jev.
 
+## Colophon
+
+Written by Adrian Ernesto Orozco Rivera, with Claude Code as the pair. The
+design calls, the benchmark methodology and the decision to measure rather than
+assert are mine; a good deal of the typing is not.
+
 ## License
 
 MIT
