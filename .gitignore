@@ -7,3 +7,4 @@ build/
 .env
 .pytest_cache/
 .DS_Store
+bench/results/*-offline.json

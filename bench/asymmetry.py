@@ -32,11 +32,19 @@ def main() -> int:
     parser.add_argument("--offline", action="store_true")
     parser.add_argument("--limit", type=int, default=16)
     parser.add_argument("--pairs", type=int, default=60)
-    parser.add_argument("--out", default="bench/results/asymmetry.json")
+    parser.add_argument("--out", default=None)
     parser.add_argument(
         "--criterion", default="more urgent for an engineering team to fix first"
     )
     args = parser.parse_args()
+
+    # Offline runs write somewhere else on purpose. They are simulated,
+    # and the committed results file holds measurements against the real
+    # model -- an --offline run must never quietly overwrite the evidence.
+    if args.out is None:
+        suffix = "-offline" if args.offline else ""
+        args.out = f"bench/results/asymmetry{suffix}.json"
+
 
     rows = labeled()[: args.limit]
     items = [Item(key=key, state={"ticket": text}) for key, text, _ in rows]

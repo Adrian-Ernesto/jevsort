@@ -99,11 +99,19 @@ def main() -> int:
     parser.add_argument("--limit", type=int, default=16)
     parser.add_argument("--budget", type=int, default=0, help="0 means 6n")
     parser.add_argument("--quicksort-runs", type=int, default=3)
-    parser.add_argument("--out", default="bench/results/strategies.json")
+    parser.add_argument("--out", default=None)
     parser.add_argument(
         "--criterion", default="more urgent for an engineering team to fix first"
     )
     args = parser.parse_args()
+
+    # Offline runs write somewhere else on purpose. They are simulated,
+    # and the committed results file holds measurements against the real
+    # model -- an --offline run must never quietly overwrite the evidence.
+    if args.out is None:
+        suffix = "-offline" if args.offline else ""
+        args.out = f"bench/results/strategies{suffix}.json"
+
 
     rows = labeled()[: args.limit]
     items = [Item(key=key, state={"ticket": text}) for key, text, _ in rows]
